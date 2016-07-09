@@ -1,0 +1,5 @@
+service: chat-bff
+provider: aws
+functions:
+    hello:
+        handler: handler.hello

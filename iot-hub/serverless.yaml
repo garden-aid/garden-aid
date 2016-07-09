@@ -1,0 +1,23 @@
+service: iot-hub
+provider: aws
+functions:
+    hello:
+        handler: handler.hello
+resources:
+  Resources:
+    SensorData:
+      Type: "AWS::DynamoDB::Table"
+      DeletionPolicy: "Retain"
+      Properties:
+      AttributeDefinitions:
+        -
+         AttributeName: "Id"
+         AttributeType: "S"
+      KeySchema:
+        -
+         AttributeName: "Id"
+         KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+        TableName: "SensorData"
