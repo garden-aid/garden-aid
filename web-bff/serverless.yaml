@@ -1,5 +1,7 @@
 service: web-bff
 provider: aws
+package:
+    include: src
 functions:
-    hello:
-        handler: handler.hello
+    graphQl:
+        handler: graphql.handler

@@ -6,7 +6,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vows test/* --spec"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,12 @@
   },
   "homepage": "https://github.com/johncmckim/garden-aid#readme",
   "dependencies": {
-    "graphql": "^0.6.1"
+    "graphql": "^0.6.1",
+    "lodash": "^4.13.1"
+  },
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "lambda-wrapper": "^0.1.0",
+    "vows": "^0.8.1"
   }
 }
