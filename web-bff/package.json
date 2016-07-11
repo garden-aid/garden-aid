@@ -1,0 +1,30 @@
+{
+  "name": "garden-aid-web-bff",
+  "version": "0.0.1",
+  "description": "Backend for Web Frontend",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johncmckim/garden-aid.git"
+  },
+  "keywords": [
+    "Serverless",
+    "IOT",
+    "AWS",
+    "Lambda"
+  ],
+  "author": "John McKim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johncmckim/garden-aid/issues"
+  },
+  "homepage": "https://github.com/johncmckim/garden-aid#readme",
+  "dependencies": {
+    "graphql": "^0.6.1"
+  }
+}
