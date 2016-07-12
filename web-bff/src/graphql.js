@@ -43,13 +43,7 @@ var Schema = new graphql.GraphQLSchema({
 module.exports.handler = (event, context, cb) => {
   console.log('Received event', event);
 
-  let query = event.query;
-
-  if (query && query.hasOwnProperty('query')) {
-    query = query.replace("\n", ' ', "g");
-  }
-
-  return graphql.graphql(Schema, query)
+  return graphql.graphql(Schema, event.query)
     .then((response) => {
       cb(null, response)
     })
