@@ -1,5 +1,6 @@
 /**
- *  Component exports
- *  export Button from './Button/Button';
- *  import { Button } from 'components';
+ *  Point of contact for component modules
+ *
+ *  ie: import { CounterButton, InfoBar } from 'components';
+ *
  */

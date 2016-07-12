@@ -1,5 +1,3 @@
-/**
- *  Container exports
- *  export NotFound from './NotFound/NotFound';
- *  import { NotFound } from 'containers';
- */
+export App from './App/App';
+export Home from './Home/Home';
+export NotFound from './NotFound/NotFound';
