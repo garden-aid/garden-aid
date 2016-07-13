@@ -27,7 +27,7 @@ module.exports = {
     popover: false,
     scrollspy: false,
     tab: false,
-    affix: false
+    affix: false,
   },
   styles: {
     mixins: true,
@@ -67,6 +67,6 @@ module.exports = {
     popovers: true,
     carousel: true,
     utilities: true,
-    'responsive-utilities': true
-  }
+    'responsive-utilities': true,
+  },
 };

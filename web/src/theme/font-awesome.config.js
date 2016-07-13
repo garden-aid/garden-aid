@@ -14,5 +14,5 @@ module.exports = {
     larger: true,
     path: true,
     animated: true,
-  }
+  },
 };

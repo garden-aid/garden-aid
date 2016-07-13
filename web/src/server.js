@@ -66,7 +66,7 @@ app.use((req, res) => {
 
         res.status(200);
 
-        global.navigator = {userAgent: req.headers['user-agent']};
+        global.navigator = { userAgent: req.headers['user-agent'] };
 
         res.send('<!doctype html>\n' +
           ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}/>));
