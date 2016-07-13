@@ -7,7 +7,7 @@ import {
     NotFound,
   } from 'containers';
 
-export default (store) => {
+export default (store) => { // eslint-disable-line no-unused-vars
   /**
    * Please keep routes in alphabetical order
    */
@@ -15,6 +15,7 @@ export default (store) => {
     <Route path="/" component={App}>
       { /* Home (main) route */ }
       <IndexRoute component={Home}/>
+
       { /* Catch all route */ }
       <Route path="*" component={NotFound} status={404} />
     </Route>
