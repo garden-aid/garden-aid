@@ -1,7 +1,20 @@
 service: web-bff
 provider: aws
+defaults: # overwrite defaults
+    stage: dev
+    region: us-east-1
+    memory: 128
+    timeout: 3
 package:
-    include: src
+    include:
+      - node_modules
+      - src
+    exclude:
+      - test
 functions:
     graphQl:
-        handler: graphql.handler
+        handler: index.graphql
+        events:
+            - http:
+                path: graphql
+                method: post

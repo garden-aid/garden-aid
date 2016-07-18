@@ -1,8 +1,8 @@
 'use strict';
 
-const graphql = require('graphql');
-
 const dayData = require('./day-data.json');
+
+const graphql = require('graphql');
 
 const dayDataArray = Object.keys(dayData).reduce(function(data, key) {
     data.push(dayData[key]);
@@ -43,7 +43,7 @@ var Schema = new graphql.GraphQLSchema({
 module.exports.handler = (event, context, cb) => {
   console.log('Received event', event);
 
-  return graphql.graphql(Schema, event.query)
+  return graphql.graphql(Schema, event.body.query)
     .then((response) => {
       cb(null, response)
     })
