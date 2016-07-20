@@ -2,21 +2,22 @@ import gql from 'graphql-tag';
 import { connect } from 'react-apollo';
 import Day from '../../pres/Moisture/Day';
 
-function mapQueriesToProps({ ownProps, state }) { // eslint-disable-line no-unused-vars
-  return {
-    category: {
-      query: gql`{
-        day {
-          hour, moisture
-        }
-      }`,
-      variables: {},
-    },
-  };
-}
-
 const DayContainer = connect({
-  mapQueriesToProps,
+  mapQueriesToProps({ ownProps, state }) { // eslint-disable-line no-unused-vars
+    return {
+      days: {
+        query: gql`{
+          day {
+            hour, moisture
+          }
+        }`,
+        variables: {},
+      },
+    };
+  },
+  //mapStateToProps(state) {
+  //  return {};
+  //},
 })(Day);
 
 export default DayContainer;
