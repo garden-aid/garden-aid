@@ -1,5 +1,6 @@
 service: web-bff
 provider: aws
+runtime: nodejs4.3
 defaults: # overwrite defaults
     stage: dev
     region: us-east-1
