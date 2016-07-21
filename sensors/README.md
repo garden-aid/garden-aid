@@ -2,10 +2,15 @@
 
 # Process
 ## Install
-* Driver - https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
+* Driver - CH340G or CP2102
+* - CP2102: https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
+* - CH340G: http://www.wemos.cc/downloads/
 * CoolTerm - http://freeware.the-meiers.org/
+* Install arduino ide - https://www.arduino.cc/en/Main/Software - 10.11
 * Get firmware - http://nodemcu-build.com/
 * Flashing - esptool
+
+* Arduino IDE - https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/installing-the-esp8266-arduino-addon
 
 ## Research
 ### Getting started
