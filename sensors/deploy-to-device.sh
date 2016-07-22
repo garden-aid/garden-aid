@@ -8,9 +8,15 @@ if [ -z $DEVICE_PORT ]; then
   exit 1;
 fi
 
+echo "Deploying code to $DEVICE_PORT"
+
 LUATOOL_PATH=./luatool/luatool/luatool.py
 SRC_FOLDER=./src
 
 INIT_PATH="$SRC_FOLDER/webserver.lua"
 
+echo "Deploying $INIT_PATH"
+
 python $LUATOOL_PATH --port $DEVICE_PORT --src $INIT_PATH --dest init.lua --verbose --restart
+
+echo 'Done'
