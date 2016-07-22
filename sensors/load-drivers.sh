@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 CP2102_DRIVER=SiLabsUSBDriver.kext
 CH340G=usbserial.kext
