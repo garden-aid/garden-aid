@@ -4,7 +4,7 @@ set -e
 DEVICE_PORT="$1"
 if [ -z $DEVICE_PORT ]; then
   echo 'Please pass the device port as the first argument';
-  echo 'e.g. /dev/tty.wchusbserial1410';
+  echo 'e.g. /dev/cu.wchusbserial1410';
   exit 1;
 fi
 
