@@ -37,6 +37,3 @@ srv:listen(80,function(conn)
         collectgarbage();
     end)
 end)
-
-
-Read more: http://www.cnx-software.com/2015/10/29/getting-started-with-nodemcu-board-powered-by-esp8266-wisoc/#ixzz4F8lBz9Yb
