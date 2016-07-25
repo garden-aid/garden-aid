@@ -8,16 +8,26 @@ if [ -z $DEVICE_PORT ]; then
   exit 1;
 fi
 
-echo "Deploying code to $DEVICE_PORT"
+SRC_FOLDER=./src/webserver
 
-#LUATOOL_PATH=./luatool/luatool/luatool.py
-#SRC_FOLDER=./src
+UPLOADER="luatool"
+#UPLOADER="nodemcu-uploader"
 
-#INIT_PATH="$SRC_FOLDER/webserver.lua"
+echo "Deploying code to $DEVICE_PORT using $UPLOADER"
 
-#echo "Deploying $INIT_PATH"
+if [[ "$UPLOADER" == "luatool" ]]; then
+  LUATOOL_PATH=./luatool/luatool/luatool.py
 
-#python $LUATOOL_PATH --port $DEVICE_PORT --src $INIT_PATH --dest init.lua --verbose --restart
-nodemcu-uploader --verbose --port "$DEVICE_PORT" upload init.lua:test.lua application.lua config.lua setup.lua 
+  python $LUATOOL_PATH --baud 9600 --port $DEVICE_PORT --src "$SRC_FOLDER/application.lua" --dest "application.lua"
+  python $LUATOOL_PATH --baud 9600 --port $DEVICE_PORT --src "$SRC_FOLDER/config.lua" --dest "config.lua"
+  python $LUATOOL_PATH --baud 9600 --port $DEVICE_PORT --src "$SRC_FOLDER/setup.lua" --dest "setup.lua"
+  python $LUATOOL_PATH --baud 9600 --port $DEVICE_PORT --src "$SRC_FOLDER/main.lua" --dest "main.lua" --dofile
+elif [[ "$UPLOADER" == "nodemcu-uploader" ]]; then
+  cd "$SRC_FOLDER"
+  nodemcu-uploader --verbose --port "$DEVICE_PORT" upload application.lua config.lua main.lua setup.lua --compile
+else
+  echo "Unknown uploader: $UPLOADER"
+  exit 1;
+fi
 
 echo 'Done'
