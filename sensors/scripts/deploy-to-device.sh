@@ -8,7 +8,7 @@ if [ -z $DEVICE_PORT ]; then
   exit 1;
 fi
 
-SRC_FOLDER=./src/webserver
+SRC_FOLDER=../src/webserver
 
 UPLOADER="luatool"
 #UPLOADER="nodemcu-uploader"
@@ -16,7 +16,7 @@ UPLOADER="luatool"
 echo "Deploying code to $DEVICE_PORT using $UPLOADER"
 
 if [[ "$UPLOADER" == "luatool" ]]; then
-  LUATOOL_PATH=./luatool/luatool/luatool.py
+  LUATOOL_PATH=./tools/luatool/luatool/luatool.py
 
   python $LUATOOL_PATH --baud 9600 --port $DEVICE_PORT --src "$SRC_FOLDER/application.lua" --dest "application.lua"
   python $LUATOOL_PATH --baud 9600 --port $DEVICE_PORT --src "$SRC_FOLDER/config.lua" --dest "config.lua"

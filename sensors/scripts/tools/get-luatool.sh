@@ -1,7 +1,7 @@
 #!/bin/bash
 
 REPOSRC=https://github.com/4refr0nt/luatool.git
-LOCALREPO=luatool
+LOCALREPO="./luatool"
 
 if [ ! -d $LOCALREPO_VC_DIR ]; then
   mkdir $LOCALREPO

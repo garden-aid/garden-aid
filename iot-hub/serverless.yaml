@@ -47,13 +47,14 @@ resources:
         AttributePayload:
            Attributes:
             SensorType: soil
+
     SensorThingRule:
       Type: "AWS::IoT::TopicRule"
       Properties:
         RuleName: "soil_sensor_store_data"
         TopicRulePayload:
-          RuleDisabled: true
-          Sql: "SELECT DeviceId, Recorded, Moisture FROM '$aws/things/soil-sensor/shadow/update'"
+          RuleDisabled: false
+          Sql: "SELECT DeviceId, Recorded, Level FROM '$aws/things/soil-sensor/shadow/update'"
           Actions:
             -
               DynamoDB:
@@ -62,8 +63,38 @@ resources:
                 HashKeyValue: "DeviceId"
                 RangeKeyField: "Recorded"
                 RangeKeyValue: "Recorded"
-                PayloadField: "Moisture"
-                RoleArn: { Ref: IotThingRole }
+                PayloadField: "Level"
+                RoleArn: { Fn::GetAtt: [ IotThingRole, Arn ] }
+    SensorThingPolicy:
+      Type: "AWS::IoT::Policy"
+      Properties:
+        PolicyName: "garden-aid-iot-sensor-policy"
+        PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              -
+                Effect: "Allow"
+                Action:
+                  - "iot:Connect"
+                Resource:
+                  - "*"
+    SensorThingCertificate:
+      Type: "AWS::IoT::Certificate"
+      Properties:
+        CertificateSigningRequest:
+        Status: "ACTIVE"
+
+    SensorPolicyPrincipalAttachment:
+      Type": "AWS::IoT::PolicyPrincipalAttachment"
+      Properties:
+        PolicyName: { Ref: SensorThingPolicy }
+        Principal: { Fn::GetAtt: [ SensorThingCertificate, Arn ] }
+
+    SensorThingPrincipalAttachment:
+      Type: "AWS::IoT::ThingPrincipalAttachment"
+      Properties:
+        ThingName: { Ref: SensorThing }
+        Principal: { Fn::GetAtt: [ SensorThingCertificate, Arn ] }
 
     IotThingRole:
        Type: "AWS::IAM::Role"

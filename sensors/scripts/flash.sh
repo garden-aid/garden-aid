@@ -17,7 +17,7 @@ fi
 
 echo "Flashing device on port $DEVICE_PORT"
 
-FIRMWARE_FOLDER="./firmware"
+FIRMWARE_FOLDER="../firmware"
 FIRMWARE_PATH="$FIRMWARE_FOLDER/nodemcu-1.5.1-float.bin"
 
 ESP_INIT_PATH="$FIRMWARE_FOLDER/esp_init_data_default-1.5.4.bin"
