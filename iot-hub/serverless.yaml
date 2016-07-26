@@ -1,23 +1,83 @@
 service: iot-hub
 provider: aws
+runtime: nodejs4.3
+defaults: # overwrite defaults
+    stage: dev
+    region: us-east-1
+    memory: 128
+    timeout: 3
+package:
+    include:
+      - node_modules
+      - src
+    exclude:
+      - test
 functions:
-    hello:
-        handler: handler.hello
+    moisture:
+        handler: handler.processMoisture
 resources:
   Resources:
-    SensorData:
+    MoistureData:
       Type: "AWS::DynamoDB::Table"
       DeletionPolicy: "Retain"
       Properties:
-      AttributeDefinitions:
-        -
-         AttributeName: "Id"
-         AttributeType: "S"
-      KeySchema:
-        -
-         AttributeName: "Id"
-         KeyType: "HASH"
-      ProvisionedThroughput:
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
-        TableName: "SensorData"
+        TableName: MoistureData
+        AttributeDefinitions:
+          -
+            AttributeName: DeviceId
+            AttributeType: S
+          -
+            AttributeName: Recorded
+            AttributeType: S
+          -
+            AttributeName: Level
+            AttributeType: N
+        KeySchema:
+          -
+            AttributeName: DeviceId
+            KeyType: HASH
+          -
+            AttributeName: Recorded
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+
+    SensorThing:
+      Type: "AWS::IoT::Thing"
+      Properties:
+        ThingName: "soil-sensor"
+        AttributePayload:
+           Attributes:
+            SensorType: soil
+    SensorThingRule:
+      Type: "AWS::IoT::TopicRule"
+      Properties:
+        RuleName: "SoilSensor-StoreData"
+        TopicRulePayload:
+          RuleDisabled: true
+          Sql: "SELECT DeviceId, Recorded, Moisture FROM '$aws/things/soil-sensor/shadow/update'"
+          Actions:
+            -
+              DynamoDB:
+                TableName: { Ref: MoistureData }
+                HashKeyField: "DeviceId"
+                HashKeyValue: "DeviceId"
+                RangeKeyField: "Recorded"
+                RangeKeyValue: "Recorded"
+                PayloadField: "Moisture"
+                RoleArn: { Ref: IotThingRole }
+
+    IotThingRole:
+       Type: "AWS::IAM::Role"
+       Properties:
+          AssumeRolePolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Effect: "Allow"
+                Principal:
+                  Service:
+                    - iot.amazonaws.com
+                Action:
+                  - sts:AssumeRole
