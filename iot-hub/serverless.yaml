@@ -29,9 +29,6 @@ resources:
           -
             AttributeName: Recorded
             AttributeType: S
-          -
-            AttributeName: Level
-            AttributeType: N
         KeySchema:
           -
             AttributeName: DeviceId
@@ -53,7 +50,7 @@ resources:
     SensorThingRule:
       Type: "AWS::IoT::TopicRule"
       Properties:
-        RuleName: "SoilSensor-StoreData"
+        RuleName: "soil_sensor_store_data"
         TopicRulePayload:
           RuleDisabled: true
           Sql: "SELECT DeviceId, Recorded, Moisture FROM '$aws/things/soil-sensor/shadow/update'"
