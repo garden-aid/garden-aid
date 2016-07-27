@@ -24,10 +24,10 @@ resources:
         TableName: MoistureData
         AttributeDefinitions:
           -
-            AttributeName: DeviceId
+            AttributeName: ClientId
             AttributeType: S
           -
-            AttributeName: Recorded
+            AttributeName: Timestamp
             AttributeType: S
         KeySchema:
           -
@@ -48,6 +48,8 @@ resources:
            Attributes:
             SensorType: soil
 
+    # AWS IoT SQL Reference
+    # http://docs.aws.amazon.com/iot/latest/developerguide/iot-sql-functions.html
     SensorThingRule:
       Type: "AWS::IoT::TopicRule"
       Properties:
@@ -59,11 +61,11 @@ resources:
             -
               DynamoDB:
                 TableName: { Ref: MoistureData }
-                HashKeyField: "DeviceId"
-                HashKeyValue: "DeviceId"
-                RangeKeyField: "Recorded"
-                RangeKeyValue: "Recorded"
-                PayloadField: "Level"
+                HashKeyField: "ClientId"
+                HashKeyValue: "${clientId()}"
+                RangeKeyField: "Timestamp"
+                RangeKeyValue: "${timestamp()}"
+                PayloadField: "Data"
                 RoleArn: { Fn::GetAtt: [ IotThingRole, Arn ] }
 
     SensorThingPolicy:
@@ -105,3 +107,16 @@ resources:
                     - iot.amazonaws.com
                 Action:
                   - sts:AssumeRole
+
+    IotThingRolePolicies:
+      Type: "AWS::IAM::Policy"
+      Properties:
+        PolicyName: "IotThingRole_Policy"
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            Effect: "Allow"
+            Action:
+              - "dynamodb:PutItem"
+            Resource: "*"
+        Roles: [{ Ref: IotThingRole }]
