@@ -1,4 +1,4 @@
-service: iot-hub
+service: garden-aid-iot-hub
 provider: aws
 runtime: nodejs4.3
 defaults: # overwrite defaults
@@ -54,7 +54,7 @@ resources:
         RuleName: "soil_sensor_store_data"
         TopicRulePayload:
           RuleDisabled: false
-          Sql: "SELECT DeviceId, Recorded, Level FROM '$aws/things/soil-sensor/shadow/update'"
+          Sql: "SELECT DeviceId, Recorded, Level FROM 'garden/soil/moisture'"
           Actions:
             -
               DynamoDB:
@@ -65,36 +65,32 @@ resources:
                 RangeKeyValue: "Recorded"
                 PayloadField: "Level"
                 RoleArn: { Fn::GetAtt: [ IotThingRole, Arn ] }
+
     SensorThingPolicy:
       Type: "AWS::IoT::Policy"
       Properties:
-        PolicyName: "garden-aid-iot-sensor-policy"
+        PolicyName: "garden_aid_iot_sensor_policy"
         PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              -
-                Effect: "Allow"
-                Action:
-                  - "iot:Connect"
-                Resource:
-                  - "*"
-    SensorThingCertificate:
-      Type: "AWS::IoT::Certificate"
-      Properties:
-        CertificateSigningRequest:
-        Status: "ACTIVE"
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Action: ["iot:Connect"]
+              Resource: ["*"]
+            - Effect: "Allow"
+              Action: ["iot:Publish"]
+              Resource: ["*"]
 
-    SensorPolicyPrincipalAttachment:
-      Type": "AWS::IoT::PolicyPrincipalAttachment"
+    SensorPolicyPrincipalAttachmentCert2:
+      Type: "AWS::IoT::PolicyPrincipalAttachment"
       Properties:
         PolicyName: { Ref: SensorThingPolicy }
-        Principal: { Fn::GetAtt: [ SensorThingCertificate, Arn ] }
+        Principal: ${iotCertificateArn}
 
-    SensorThingPrincipalAttachment:
+    SensorThingPrincipalAttachmentCert2:
       Type: "AWS::IoT::ThingPrincipalAttachment"
       Properties:
         ThingName: { Ref: SensorThing }
-        Principal: { Fn::GetAtt: [ SensorThingCertificate, Arn ] }
+        Principal: ${iotCertificateArn}
 
     IotThingRole:
        Type: "AWS::IAM::Role"

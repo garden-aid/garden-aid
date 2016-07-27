@@ -24,4 +24,4 @@ openssl x509 -req \
   -CAcreateserial \
   -out $CRT_FILENAME \
   -days 500 \
-  –sha256
+  -sha256
