@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/johncmckim/garden-aid#readme",
   "devDependencies": {
-    "aws-iot-device-sdk": "^1.0.12"
+    "aws-iot-device-sdk": "^1.0.12",
+    "lodash": "^4.14.1"
   }
 }

@@ -81,13 +81,13 @@ resources:
               Action: ["iot:Publish"]
               Resource: ["${sensorThingSoilTopicResource}"]
 
-    SensorPolicyPrincipalAttachmentCert2:
+    SensorPolicyPrincipalAttachmentCert:
       Type: AWS::IoT::PolicyPrincipalAttachment
       Properties:
         PolicyName: { Ref: SensorThingPolicy }
         Principal: ${iotCertificateArn}
 
-    SensorThingPrincipalAttachmentCert2:
+    SensorThingPrincipalAttachmentCert:
       Type: "AWS::IoT::ThingPrincipalAttachment"
       Properties:
         ThingName: { Ref: SensorThing }

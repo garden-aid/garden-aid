@@ -1,7 +1,6 @@
-
-var awsIot = require('aws-iot-device-sdk');
-var deviceConfig = require('./device-config');
-
+var _             = require('lodash'),
+    awsIot        = require('aws-iot-device-sdk'),
+    deviceConfig  = require('./device-config');
 
 var deviceOptions = deviceConfig.options;
 
@@ -22,16 +21,21 @@ function publishMoisture(level) {
   device.publish('garden/soil/moisture', JSON.stringify({
     DeviceId: 'test-js-device',
     Recorded: (new Date()).toISOString(),
-    Level: 0.897
+    Level: level
   }));
 }
+
+
+var levels = [ 0.897, 1.9 ];
+var initialize = _.once(() => {
+  console.log('Initilizing');
+  _.forEach(levels, publishMoisture);
+});
 
 device
   .on('connect', function() {
     console.log('connect');
-
-    publishMoisture(0.897);
-    publishMoisture(1.9);
+    initialize();
   });
 
 device
