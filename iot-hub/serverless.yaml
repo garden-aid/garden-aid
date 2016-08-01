@@ -2,26 +2,26 @@ service: garden-aid-iot-hub
 provider: aws
 runtime: nodejs4.3
 defaults: # overwrite defaults
-    stage: dev
-    region: us-east-1
-    memory: 128
-    timeout: 3
+  stage: dev
+  region: us-east-1
+  memory: 128
+  timeout: 3
 package:
-    include:
-      - node_modules
-      - src
-    exclude:
-      - test
+  include:
+    - node_modules
+    - src
+  exclude:
+    - test
 functions:
-    moisture:
-        handler: handler.processMoisture
+  moisture:
+    handler: handler.processMoisture
 resources:
   Resources:
     MoistureData:
-      Type: "AWS::DynamoDB::Table"
-      DeletionPolicy: "Retain"
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
       Properties:
-        TableName: MoistureData
+        TableName: moisture_data_raw
         AttributeDefinitions:
           -
             AttributeName: ClientId
@@ -31,10 +31,10 @@ resources:
             AttributeType: S
         KeySchema:
           -
-            AttributeName: DeviceId
+            AttributeName: ClientId
             KeyType: HASH
           -
-            AttributeName: Recorded
+            AttributeName: Timestamp
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 5
@@ -51,9 +51,9 @@ resources:
     # AWS IoT SQL Reference
     # http://docs.aws.amazon.com/iot/latest/developerguide/iot-sql-functions.html
     SensorThingRule:
-      Type: "AWS::IoT::TopicRule"
+      Type: AWS::IoT::TopicRule
       Properties:
-        RuleName: "soil_sensor_store_data"
+        RuleName: soil_sensor_store_data
         TopicRulePayload:
           RuleDisabled: false
           Sql: "SELECT DeviceId, Recorded, Level FROM 'garden/soil/moisture'"
@@ -62,28 +62,27 @@ resources:
               DynamoDB:
                 TableName: { Ref: MoistureData }
                 HashKeyField: "ClientId"
-                HashKeyValue: "${clientId()}"
+                HashKeyValue: "${sensorThingRuleHashKeyValue}"
                 RangeKeyField: "Timestamp"
-                RangeKeyValue: "${timestamp()}"
+                RangeKeyValue: "${sensorThingRuleRangeKeyValue}"
                 PayloadField: "Data"
                 RoleArn: { Fn::GetAtt: [ IotThingRole, Arn ] }
 
     SensorThingPolicy:
-      Type: "AWS::IoT::Policy"
+      Type: AWS::IoT::Policy
       Properties:
-        PolicyName: "garden_aid_iot_sensor_policy"
         PolicyDocument:
           Version: "2012-10-17"
           Statement:
-            - Effect: "Allow"
+            - Effect: Allow
               Action: ["iot:Connect"]
-              Resource: ["*"]
+              Resource: ["${sensorThingClientResource}"]
             - Effect: "Allow"
               Action: ["iot:Publish"]
-              Resource: ["*"]
+              Resource: ["${sensorThingSoilTopicResource}"]
 
     SensorPolicyPrincipalAttachmentCert2:
-      Type: "AWS::IoT::PolicyPrincipalAttachment"
+      Type: AWS::IoT::PolicyPrincipalAttachment
       Properties:
         PolicyName: { Ref: SensorThingPolicy }
         Principal: ${iotCertificateArn}
@@ -95,13 +94,13 @@ resources:
         Principal: ${iotCertificateArn}
 
     IotThingRole:
-       Type: "AWS::IAM::Role"
+       Type: AWS::IAM::Role
        Properties:
           AssumeRolePolicyDocument:
             Version: "2012-10-17"
             Statement:
               -
-                Effect: "Allow"
+                Effect: Allow
                 Principal:
                   Service:
                     - iot.amazonaws.com
@@ -109,14 +108,14 @@ resources:
                   - sts:AssumeRole
 
     IotThingRolePolicies:
-      Type: "AWS::IAM::Policy"
+      Type: AWS::IAM::Policy
       Properties:
-        PolicyName: "IotThingRole_Policy"
+        PolicyName: IotThingRole_Policy
         PolicyDocument:
           Version: "2012-10-17"
           Statement:
-            Effect: "Allow"
+            Effect: Allow
             Action:
-              - "dynamodb:PutItem"
+              - dynamodb:PutItem
             Resource: "*"
         Roles: [{ Ref: IotThingRole }]
