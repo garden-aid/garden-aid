@@ -1,6 +1,7 @@
 service: garden-aid-iot-hub
 provider: aws
 runtime: nodejs4.3
+variableSyntax: '\${{([\s\S]+?)}}'
 defaults: # overwrite defaults
   stage: dev
   region: us-east-1
@@ -8,10 +9,11 @@ defaults: # overwrite defaults
   timeout: 3
 package:
   include:
-    - node_modules
+    # - node_modules # we don't have any node_modules right now
     - src
   exclude:
     - test
+    - node_modules
 functions:
   moisture:
     handler: handler.processMoisture
@@ -62,9 +64,9 @@ resources:
               DynamoDB:
                 TableName: { Ref: MoistureData }
                 HashKeyField: "ClientId"
-                HashKeyValue: "${sensorThingRuleHashKeyValue}"
+                HashKeyValue: "${clientId()}"
                 RangeKeyField: "Timestamp"
-                RangeKeyValue: "${sensorThingRuleRangeKeyValue}"
+                RangeKeyValue: "${timestamp()}"
                 PayloadField: "Data"
                 RoleArn: { Fn::GetAtt: [ IotThingRole, Arn ] }
 
@@ -76,22 +78,22 @@ resources:
           Statement:
             - Effect: Allow
               Action: ["iot:Connect"]
-              Resource: ["${sensorThingClientResource}"]
+              Resource: ["${{sensorThingClientResource}}"]
             - Effect: "Allow"
               Action: ["iot:Publish"]
-              Resource: ["${sensorThingSoilTopicResource}"]
+              Resource: ["${{sensorThingSoilTopicResource}}"]
 
     SensorPolicyPrincipalAttachmentCert:
       Type: AWS::IoT::PolicyPrincipalAttachment
       Properties:
         PolicyName: { Ref: SensorThingPolicy }
-        Principal: ${iotCertificateArn}
+        Principal: ${{iotCertificateArn}}
 
     SensorThingPrincipalAttachmentCert:
       Type: "AWS::IoT::ThingPrincipalAttachment"
       Properties:
         ThingName: { Ref: SensorThing }
-        Principal: ${iotCertificateArn}
+        Principal: ${{iotCertificateArn}}
 
     IotThingRole:
        Type: AWS::IAM::Role
