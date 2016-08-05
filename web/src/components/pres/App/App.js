@@ -5,6 +5,8 @@ import Helmet from 'react-helmet';
 
 import config from 'app-config';
 
+import styles from './App.scss';
+
 export default class App extends Component {
 
   static propTypes = {
@@ -16,12 +18,10 @@ export default class App extends Component {
   }
 
   render() {
-    const styles = require('./App.scss');
-
     return (
       <div className={styles.app}>
         <Helmet {...config.app.head}/>
-        <div className={styles.app_content}>
+        <div className="container">
           {this.props.children}
         </div>
       </div>

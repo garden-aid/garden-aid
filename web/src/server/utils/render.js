@@ -20,6 +20,7 @@ export const renderFullPage = (html, devPort, domain, initialState = null, head)
 
         ${bundleCSS}
         <link rel="shortcut icon" href="/static/images/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
         ${head ? head.title.toString() : ''}
       </head>
       <body>

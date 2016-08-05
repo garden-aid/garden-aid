@@ -1,4 +1,5 @@
 import React from 'react';
+import { Line } from 'react-chartjs-2';
 
 export default function Day({ days }) {
   const items = days.day || [];
@@ -9,17 +10,23 @@ export default function Day({ days }) {
     );
   }
 
+  const data = {
+    labels: items.map((d) => d.hour, []),
+    datasets: [{
+      label: 'Moisture',
+      fill: true,
+      data: items.map((d) => d.moisture, []),
+    }],
+  };
+
   return (
     <div className="container">
       <h2>Day</h2>
-      <ul>
-
-      {items.map((day) => (
-        <li key={day.hour}>
-          {day.hour}pm: {day.moisture}
-        </li>
-      ))}
-      </ul>
+      <div className="row">
+        <div className="col-md-6">
+          <Line data={data} />
+        </div>
+      </div>
     </div>
   );
 }
