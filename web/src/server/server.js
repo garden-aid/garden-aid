@@ -25,8 +25,10 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Static directory for express
-app.use('/static', Express.static(__dirname + '/../../static/'));
-app.use('/dist', Express.static(__dirname + '/../../dist/'));
+const publicDir = path.resolve(__dirname, '../../public');
+
+app.use('/static', Express.static(publicDir + '/static/'));
+app.use('/dist', Express.static(publicDir + '/dist/'));
 
 app.get(/.*/, (req, res) => {
   const domain = req.get('host').replace(/\:.*/, '');

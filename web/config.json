@@ -1,0 +1,6 @@
+{
+  "API_GATEWAY": {
+    "development": "https://k54bi9lzth.execute-api.us-east-1.amazonaws.com/dev/",
+    "production": "https://0yr08rl9i8.execute-api.us-east-1.amazonaws.com/prod/"
+  }
+}

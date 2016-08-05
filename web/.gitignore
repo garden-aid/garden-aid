@@ -3,7 +3,9 @@
 .tmp
 .sass-cache/
 node_modules/
-dist/
+
+public/dist/
+
 *.iml
 webpack-assets.json
 webpack-stats.json

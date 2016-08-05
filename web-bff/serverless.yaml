@@ -1,11 +1,10 @@
 service: web-bff
-provider: aws
-runtime: nodejs4.3
+provider:
+  name: aws
+  runtime: nodejs4.3
 defaults: # overwrite defaults
     stage: dev
     region: us-east-1
-    memory: 128
-    timeout: 3
 package:
     include:
       - node_modules
@@ -15,6 +14,8 @@ package:
 functions:
     graphQl:
         handler: index.graphql
+        memory: 128
+        timeout: 3
         events:
             - http:
                 path: graphql

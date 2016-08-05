@@ -11,6 +11,7 @@ const TARGET = process.env.npm_lifecycle_event;
 process.env.BABEL_ENV = TARGET;
 
 const folders = {
+  OUTPUT: path.resolve(__dirname, '../public'),
   SRC: path.resolve(__dirname, '../src'),
   CONFIG: path.resolve(__dirname, '../_config'),
   BUILD: path.resolve(__dirname, '../build'),
@@ -20,7 +21,7 @@ const folders = {
 
 const common = {
   output: {
-    path: __dirname + '/../dist/',
+    path: folders.OUTPUT + '/dist',
     publicPath: '/dist/',
     filename: '[name].js',
     chunkFilename: '[name].chunk.js',
@@ -40,6 +41,9 @@ const common = {
 
   module: {
     loaders: [{
+      test: /\.json$/,
+      loader: 'json',
+    }, {
       test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'url?limit=10000&mimetype=application/font-woff',
     }, {
