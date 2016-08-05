@@ -1,2 +1,2 @@
 
-export DayContainer from './Moisture/DayContainer';
+export { DayContainer } from './Moisture/DayContainer';

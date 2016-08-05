@@ -1,6 +1,7 @@
 {
   "extends": "eslint-config-airbnb",
   "rules": {
+    "no-amd": 0,
   },
   "plugins": [
     "react", "import"

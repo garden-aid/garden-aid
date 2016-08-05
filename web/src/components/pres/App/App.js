@@ -6,13 +6,14 @@ import Helmet from 'react-helmet';
 import config from 'app-config';
 
 export default class App extends Component {
+
   static propTypes = {
     children: PropTypes.object.isRequired,
-  };
+  }
 
   static contextTypes = {
     store: PropTypes.object.isRequired,
-  };
+  }
 
   render() {
     const styles = require('./App.scss');

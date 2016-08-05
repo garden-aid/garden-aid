@@ -11,6 +11,7 @@
   "homepage": "https://github.com/johncmckim/garden-aid",
   "keywords": [],
   "scripts": {
+    "lint": "eslint .",
     "start": "rimraf dist && NODE_ENV=development node bin/server.js",
     "start:prod": "NODE_ENV=production node bin/server.js",
     "build": "rimraf dist && NODE_ENV=production webpack --progress --verbose --display-error-details --config webpack/common.config.js",

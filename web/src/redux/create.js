@@ -14,7 +14,7 @@ export default function createAppStore(browserHistory, apolloClient) {
     }),
     applyMiddleware(
       loggerMiddleware, // neat middleware that logs actions
-      reduxRouterMiddleware, // allows us to dispatch location changes
+      reduxRouterMiddleware // allows us to dispatch location changes
     )
   );
 }

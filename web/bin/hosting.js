@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
-'use strict';
-
-var express = require('express');
-var http = require('http');
-var path = require('path');
+const express = require('express');
+const http = require('http');
+const path = require('path');
 
 const app = express();
 const server = new http.Server(app);

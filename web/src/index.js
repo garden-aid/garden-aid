@@ -3,8 +3,8 @@ import { GRAPHQL_URL } from 'constants';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { IndexRoute, Router, Route, browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
+import { Router, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
 
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
@@ -31,4 +31,4 @@ ReactDOM.render(
     <Router history={history}>{getRoutes(store)}</Router>
   </ApolloProvider>,
   rootEl
-)
+);

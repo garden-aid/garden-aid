@@ -2,9 +2,8 @@ import React from 'react';
 
 export default function Day({ days }) {
   const items = days.day || [];
-  console.log(days);
-  console.log(items);
-  if(days.loading) {
+
+  if (days.loading) {
     return (
       <p>Loading...</p>
     );
@@ -15,11 +14,11 @@ export default function Day({ days }) {
       <h2>Day</h2>
       <ul>
 
-      {items.map((day) => {
-        return (<li key={day.hour}>
+      {items.map((day) => (
+        <li key={day.hour}>
           {day.hour}pm: {day.moisture}
-        </li>)
-      })}
+        </li>
+      ))}
       </ul>
     </div>
   );
