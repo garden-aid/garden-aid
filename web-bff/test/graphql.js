@@ -10,11 +10,13 @@ module.exports = function(suite) {
     "get days": {
       topic: function() {
         handler.run({
-          query: `{
-            day {
-              hour, moisture
-            }
-          }`,
+          body: {
+            query: `{
+              day {
+                hour, moisture
+              }
+            }`
+          },
         }, this.callback);
       },
       "runs": function (err, result) {
