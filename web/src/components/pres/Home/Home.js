@@ -4,14 +4,13 @@ import Helmet from 'react-helmet';
 
 import { DayContainer } from '../../containers';
 
-import styles from './Home.scss';
-
 export default function Home() {
   return (
-    <div className={styles.home}>
+    <div className="row">
       <Helmet title="Home" />
-      <h1>Hi</h1>
-      <DayContainer />
+      <div className="col-md-6">
+        <DayContainer />
+      </div>
     </div>
   );
 }

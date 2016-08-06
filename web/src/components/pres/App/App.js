@@ -5,7 +5,9 @@ import Helmet from 'react-helmet';
 
 import config from 'app-config';
 
-import styles from './App.scss';
+import rdash from 'static/rdash/css/rdash.css';
+
+import SideBar from './SideBar.js';
 
 export default class App extends Component {
 
@@ -19,10 +21,26 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className={styles.app}>
+      <div>
         <Helmet {...config.app.head}/>
-        <div className="container">
-          {this.props.children}
+        <div id="page-wrapper" className="open">
+          <SideBar />
+          <div id="content-wrapper">
+            <div className="page-content">
+              <div className="row header">
+                <div className="col-xs-12">
+                  <div className="meta">
+                    <div className="page">
+                      Dashboard
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                {this.props.children}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

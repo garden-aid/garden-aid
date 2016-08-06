@@ -20,12 +20,9 @@ export default function Day({ days }) {
   };
 
   return (
-    <div className="container">
-      <h2>Day</h2>
-      <div className="row">
-        <div className="col-md-6">
-          <Line data={data} />
-        </div>
+    <div className="widget">
+      <div className="widget-body">
+        <Line data={data} />
       </div>
     </div>
   );

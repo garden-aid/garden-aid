@@ -13,6 +13,7 @@ process.env.BABEL_ENV = TARGET;
 const folders = {
   OUTPUT: path.resolve(__dirname, '../public'),
   SRC: path.resolve(__dirname, '../src'),
+  STATIC: path.resolve(__dirname, '../static'),
   CONFIG: path.resolve(__dirname, '../_config'),
   BUILD: path.resolve(__dirname, '../build'),
   BOWER: path.resolve(__dirname, '../bower_components'),
@@ -36,6 +37,7 @@ const common = {
       components: path.join(folders.SRC, 'components'),
       constants: path.join(folders.SRC, 'constants'),
       'redux/modules': path.join(folders.SRC, '../app/redux/modules/'),
+      static: folders.STATIC,
     },
   },
 
@@ -65,6 +67,9 @@ const common = {
       test: /\.js$/,
       exclude: /node_modules/,
       loader: 'babel-loader',
+    }, {
+      test: /\.css$/,
+      loader: 'style-loader!css!postcss-loader',
     }, {
       test: /\.png$/,
       loader: 'file?name=[name].[ext]',
