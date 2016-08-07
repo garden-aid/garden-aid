@@ -95,6 +95,18 @@ resources:
         ThingName: { Ref: SensorThing }
         Principal: ${{iotCertificateArn}}
 
+    SensorPolicyPrincipalAttachmentCert2:
+      Type: AWS::IoT::PolicyPrincipalAttachment
+      Properties:
+        PolicyName: { Ref: SensorThingPolicy }
+        Principal: ${{iotCertificateArn2}}
+
+    SensorThingPrincipalAttachmentCert2:
+      Type: "AWS::IoT::ThingPrincipalAttachment"
+      Properties:
+        ThingName: { Ref: SensorThing }
+        Principal: ${{iotCertificateArn2}}
+
     IotThingRole:
        Type: AWS::IAM::Role
        Properties:
