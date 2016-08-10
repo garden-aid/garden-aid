@@ -1,12 +1,7 @@
 
 const graphql = require('graphql');
 
-const dayData = require('./day-data.json');
-
-const dayDataArray = Object.keys(dayData).reduce(function(data, key) {
-    data.push(dayData[key]);
-    return data;
-}, []);
+const dayService = require('../dayService.js')
 
 var MoistureType = new graphql.GraphQLObjectType({
   name: 'Moisture',
@@ -26,6 +21,6 @@ exports.dayQuery = {
     year: { type: graphql.GraphQLInt },
   },
   resolve: (_, args) => {
-    return dayDataArray;
+    return dayService.getLast24Hours();
   }
 };
