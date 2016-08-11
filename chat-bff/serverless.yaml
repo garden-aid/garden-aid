@@ -1,6 +1,0 @@
-service: garden-aid-chat-bff
-provider: aws
-runtime: nodejs4.3
-functions:
-    hello:
-        handler: handler.hello
