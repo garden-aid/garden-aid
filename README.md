@@ -2,7 +2,7 @@
 A serverless IOT project for my garden
 
 ## Environments
-* [Prod](https://garden-aid.firebaseapp.com/)
+* [Prod](https://garden-aid-production.firebaseapp.com/)
 * [Dev](https://garden-aid-dev.firebaseapp.com/)
 
 ## Architecture
