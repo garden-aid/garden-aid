@@ -1,7 +1,9 @@
 
 'use strict';
 
-const BbPromise = require("bluebird");
+const BbPromise = require('bluebird');
+const moment = require('moment');
+
 const tables = require('../dynamodb/tables');
 
 function logError(err) {
@@ -36,12 +38,17 @@ class DayService {
   }
 
   getLast24Hours() {
+    const after = moment().subtract(1, 'days').valueOf();
+    console.log('Retreiving records after: ' + after);
+
     return this.dayTable
       .query('garden-aid-client-test-js')
+      .gte(after)
       .execAsync()
       .then(logResults)
       .then(convertResults)
       .catch(logError);
   }
 }
+
 module.exports = DayService;

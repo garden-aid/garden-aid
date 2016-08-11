@@ -1,16 +1,20 @@
 service: garden-aid-web-bff
 provider:
-  name: aws
-  runtime: nodejs4.3
+    name: aws
+    runtime: nodejs4.3
 defaults: # overwrite defaults
     stage: dev
     region: us-east-1
 package:
     include:
-      - node_modules
+      - index.js
       - src
+      - node_modules
     exclude:
       - test
+      - coverage
+      - package.json
+
 functions:
     graphQl:
         handler: index.graphql
