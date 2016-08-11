@@ -8,7 +8,7 @@ export const DayContainer = connect({
       days: {
         query: gql`{
           day {
-            hour, moisture
+            date, moisture
           }
         }`,
         variables: {},

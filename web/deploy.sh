@@ -5,7 +5,7 @@ STAGE=${STAGE:-dev}
 
 echo "Deploying to stage $STAGE"
 
-if [ $STAGE -eq 'prod' ] ; then
+if [ $STAGE == 'prod' ] ; then
   npm run build
   firebase deploy -P garden-aid
 else

@@ -11,7 +11,7 @@ export default function Day({ days }) {
   }
 
   const data = {
-    labels: items.map((d) => d.hour, []),
+    labels: items.map((d) => d.date, []),
     datasets: [{
       label: 'Moisture',
       fill: true,
