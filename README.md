@@ -8,7 +8,7 @@ A serverless IOT project for my garden
 ## Architecture
 Architecture diagram (chat-bff yet to be designed)
 
-![Architecture](/docs/images/architecture.png)
+![Architecture](https://github.com/johncmckim/garden-aid/raw/master/docs/images/architecure.png)
 
 // TODO: Explain planned architecture
 
