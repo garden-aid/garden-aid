@@ -12,6 +12,7 @@ function logError(err) {
 
 function logResults(resp) {
   console.log('Found', resp.Count, 'items');
+  console.log(resp.Items);
 
   if(resp.ConsumedCapacity) {
     console.log('----------------------------------------------------------------------');
@@ -22,10 +23,11 @@ function logResults(resp) {
 }
 
 function convertResults(resp) {
-  const result = resp.Items.map(i => {
+  const result = resp.Items.map(item => {
+    const data = item.attrs.Data;
     return {
-      date: i.Data.Recorded,
-      moisture: i.Data.Level,
+      date: data.Recorded,
+      moisture: data.Level,
     };
   });
 
@@ -37,13 +39,12 @@ class DayService {
     this.dayTable = dayTable;
   }
 
-  getLast24Hours() {
-    const after = moment().subtract(1, 'days').valueOf();
-    console.log('Retreiving records after: ' + after);
+  getLastHours(clientId, hours) {
+    //const after = moment().subtract(hours, 'hours').valueOf();
+    //console.log('Retreiving records after: ' + after);
 
     return this.dayTable
-      .query('garden-aid-client-test-js')
-      .gte(after)
+      .query(clientId)
       .execAsync()
       .then(logResults)
       .then(convertResults)

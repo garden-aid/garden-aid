@@ -4,11 +4,17 @@
   },
   "hosting": {
     "public": "public",
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "src/**",
+      "bin/**",
+      "webpack/**",
+      "node_modules/**"
+    ],
+    "rewrites": [{
+      "source": "**",
+      "destination": "/index.html"
+    }]
   }
 }

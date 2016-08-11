@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 
-var _             = require('lodash'),
-    awsIot        = require('aws-iot-device-sdk'),
-    deviceConfig  = require('./device-config');
+'use strict'
 
-var deviceOptions = deviceConfig.options;
+const _             = require('lodash'),
+      awsIot        = require('aws-iot-device-sdk'),
+      deviceConfig  = require('./device-config');
+
+const deviceOptions = deviceConfig.options;
 
 console.log('Creating device with options', deviceOptions);
 
-var device = awsIot.device(deviceOptions);
+const device = awsIot.device(deviceOptions);
 
 /* example payload
 {
@@ -17,6 +19,9 @@ var device = awsIot.device(deviceOptions);
   "Level": 0.98
 }
 */
+function getRandomLevel(min,max) {
+    return Math.random()*(max-min+1)+min;
+}
 
 function publishMoisture(level) {
   console.log('Publishing level', level);
@@ -27,11 +32,17 @@ function publishMoisture(level) {
   }));
 }
 
+function publishRandomMoisture() {
+  const level = getRandomLevel(0, 5);
+  publishMoisture(level);
+}
 
-var levels = [ 0.897, 1.9 ];
-var initialize = _.once(() => {
+const interval = 1000 * 60 * 1; // one minute
+
+const initialize = _.once(() => {
   console.log('Initilizing');
-  _.forEach(levels, publishMoisture);
+  publishRandomMoisture();
+  setTimeout(publishRandomMoisture, interval);
 });
 
 device

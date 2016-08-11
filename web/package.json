@@ -15,6 +15,7 @@
     "start": "rimraf dist && NODE_ENV=development node bin/server.js",
     "start:prod": "NODE_ENV=production node bin/server.js",
     "build": "rimraf dist && NODE_ENV=production webpack --progress --verbose --display-error-details --config webpack/common.config.js",
+    "build:dev": "rimraf dist && NODE_ENV=development webpack --progress --verbose --display-error-details --config webpack/common.config.js",
     "build:watch": "rimraf dist && webpack --progress --verbose --display-error-details --watch --config webpack/common.config.js",
     "build:analyze": "NODE_ENV=production webpack --json --config webpack/common.config.js | webpack-bundle-size-analyzer > logs/build-analyze.log",
     "test": "NODE_PATH=./app mocha --require ./bin/test.js 'app/**/*spec.js'",

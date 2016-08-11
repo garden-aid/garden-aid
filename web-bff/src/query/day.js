@@ -22,7 +22,7 @@ module.exports = function(dayService) {
       year: { type: graphql.GraphQLInt },
     },
     resolve: (_, args, ast) => {
-      return dayService.getLast24Hours();
+      return dayService.getLastHours('garden-aid-client-test-js', 24);
     }
   }
 }

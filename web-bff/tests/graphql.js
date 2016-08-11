@@ -23,21 +23,25 @@ describe('#handler()', () => {
         return BbPromise.resolve({
           Count: 2,
           Items: [{
-            ClientId: 'test-client',
-            Timestamp: '1470089804289',
-            Data: {
-              DeviceId: 'test-blah',
-              Level: 1.1,
-              Recorded: '2016-08-01T22:16:43.642Z'
-            },
+            attrs: {
+              ClientId: 'test-client',
+              Timestamp: '1470089804289',
+              Data: {
+                DeviceId: 'test-blah',
+                Level: 1.1,
+                Recorded: '2016-08-01T22:16:43.642Z'
+              },
+            }
           }, {
-            ClientId: 'test-client',
-            Timestamp: '1470089804032',
-            Data: {
-              DeviceId: 'test-blah',
-              Level: 0.4,
-              Recorded: '2016-08-01T22:16:43.641Z'
-            },
+            attrs: {
+              ClientId: 'test-client',
+              Timestamp: '1470089804032',
+              Data: {
+                DeviceId: 'test-blah',
+                Level: 0.4,
+                Recorded: '2016-08-01T22:16:43.641Z'
+              },
+            }
           }]
         });
       }
