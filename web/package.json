@@ -18,7 +18,7 @@
     "build:dev": "rimraf dist && NODE_ENV=development webpack --progress --verbose --display-error-details --config webpack/common.config.js",
     "build:watch": "rimraf dist && webpack --progress --verbose --display-error-details --watch --config webpack/common.config.js",
     "build:analyze": "NODE_ENV=production webpack --json --config webpack/common.config.js | webpack-bundle-size-analyzer > logs/build-analyze.log",
-    "test": "snyk test && NODE_PATH=./app mocha --require ./bin/test.js 'app/**/*spec.js'",
+    "test": "snyk test",
     "test:watch": "npm run test -- --watch",
     "snyk-protect": "snyk protect",
     "prepublish": "npm run snyk-protect"
@@ -76,12 +76,20 @@
     "snyk": "^1.18.0"
   },
   "devDependencies": {
-    "eslint": "^3.2.2",
+    "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",
-    "eslint-plugin-import": "^1.12.0",
-    "eslint-plugin-jsx-a11y": "^2.0.1",
+    "eslint-plugin-import": "^1.9.2",
+    "eslint-plugin-jsx-a11y": "^1.5.3",
+    "eslint-plugin-react": "^5.2.2",
     "json-loader": "^0.5.4",
-    "rimraf": "^2.5.4"
+    "rimraf": "^2.5.4",
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.4",
+    "lambda-wrapper": "^0.1.0",
+    "mocha": "^2.5.3",
+    "mocha-lcov-reporter": "^1.2.0",
+    "mock-require": "^1.3.0",
+    "sinon": "^1.17.5"
   },
   "snyk": true
 }

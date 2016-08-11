@@ -6,6 +6,9 @@ STAGE=${STAGE:-dev}
 echo 'Installing dependencies'
 npm i
 
+echo 'Running tests'
+npm test
+
 echo "Deploying to stage $STAGE"
 
 if [ $STAGE == 'prod' ] ; then
