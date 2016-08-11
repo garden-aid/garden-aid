@@ -26,6 +26,9 @@ echo "Deploying stage from branch $BRANCH to $STAGE"
 cd "$WORKING_DIR/iot-hub"
 . "./deploy.sh"
 
+#cd "$WORKING_DIR/chat-bff"
+#. "./deploy.sh"
+
 cd "$WORKING_DIR/web-bff"
 . "./deploy.sh"
 
