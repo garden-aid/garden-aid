@@ -3,6 +3,9 @@ set -e
 
 STAGE=${STAGE:-dev}
 
+echo 'Installing dependencies'
+npm i
+
 echo "Deploying to stage $STAGE"
 
 if [ $STAGE == 'prod' ] ; then

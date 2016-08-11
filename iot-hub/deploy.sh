@@ -4,4 +4,8 @@ set -e
 STAGE=${STAGE:-dev}
 AWS_REGION=${AWS_REGION:-ap-southeast-2}
 
+echo 'Installing dependencies...'
+npm i
+
+echo "Deploying to stage $STAGE..."
 sls deploy --stage $STAGE --region $AWS_REGION
