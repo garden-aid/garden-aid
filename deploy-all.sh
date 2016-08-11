@@ -23,6 +23,11 @@ fi
 
 echo "Deploying stage from branch $BRANCH to $STAGE"
 
-. "$WORKING_DIR/iot-hub/deploy.sh"
-. "$WORKING_DIR/web-bff/deploy.sh"
-. "$WORKING_DIR/web/deploy.sh"
+cd "$WORKING_DIR/iot-hub"
+. "./deploy.sh"
+
+cd "$WORKING_DIR/web-bff"
+. "./deploy.sh"
+
+cd "$WORKING_DIR/web"
+. "./deploy.sh"
