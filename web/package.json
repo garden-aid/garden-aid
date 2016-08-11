@@ -18,8 +18,10 @@
     "build:dev": "rimraf dist && NODE_ENV=development webpack --progress --verbose --display-error-details --config webpack/common.config.js",
     "build:watch": "rimraf dist && webpack --progress --verbose --display-error-details --watch --config webpack/common.config.js",
     "build:analyze": "NODE_ENV=production webpack --json --config webpack/common.config.js | webpack-bundle-size-analyzer > logs/build-analyze.log",
-    "test": "NODE_PATH=./app mocha --require ./bin/test.js 'app/**/*spec.js'",
-    "test:watch": "npm run test -- --watch"
+    "test": "snyk test && NODE_PATH=./app mocha --require ./bin/test.js 'app/**/*spec.js'",
+    "test:watch": "npm run test -- --watch",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "apollo-client": "^0.4.4",
@@ -70,7 +72,8 @@
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.12.1",
     "webpack-merge": "^0.14.0",
-    "webpack-stream": "^3.2.0"
+    "webpack-stream": "^3.2.0",
+    "snyk": "^1.18.0"
   },
   "devDependencies": {
     "eslint": "^3.2.2",
@@ -78,6 +81,7 @@
     "eslint-plugin-import": "^1.12.0",
     "eslint-plugin-jsx-a11y": "^2.0.1",
     "json-loader": "^0.5.4",
-    "rimraf": "^2.5.3"
-  }
+    "rimraf": "^2.5.4"
+  },
+  "snyk": true
 }
