@@ -1,4 +1,4 @@
-service: web-bff
+service: garden-aid-web-bff
 provider:
   name: aws
   runtime: nodejs4.3
